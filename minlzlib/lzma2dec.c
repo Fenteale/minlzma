@@ -152,6 +152,11 @@ Lz2DecodeStream (
                 break;
             }
         }
+		else if(controlByte.u.Lzma.ResetState == Lzma2SimpleReset)
+		{
+			if(!LzInitializeSimple())
+				break;
+		}
         else if (controlByte.u.Lzma.ResetState != Lzma2NoReset)
         {
             break;

@@ -1,5 +1,5 @@
 ﻿#pragma once
-
+#include <stdint.h>
 /*!
  * @brief          Decompresses an XZ stream from InputBuffer into OutputBuffer.
  *

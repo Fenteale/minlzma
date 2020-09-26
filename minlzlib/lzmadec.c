@@ -615,3 +615,24 @@ LzInitialize (
     }
     return true;
 }
+
+bool
+LzInitializeSimple (
+		//uint8_t Properties
+)
+{
+	//
+	// Initialize decoder to default state in case we're called more than once.
+	// The LZMA "Bit Model" is an adaptive arithmetic-coded probability-based
+	// bit tree which encodes either a "0" or a "1".
+	//
+	Decoder.Sequence = LzmaLitLitLitState;
+	Decoder.Rep0 = Decoder.Rep1 = Decoder.Rep2 = Decoder.Rep3 = 0;
+	static_assert((LZMA_BIT_MODEL_SLOTS * 2) == sizeof(Decoder.u.BitModel),
+				  "Invalid size");
+	for (int i = 0; i < LZMA_BIT_MODEL_SLOTS; i++)
+	{
+		RcSetDefaultProbability(&Decoder.u.RawProbabilities[i]);
+	}
+	return true;
+}
